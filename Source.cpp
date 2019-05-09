@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <utility>
 #include <unordered_map>
 
 using namespace std;
@@ -33,7 +34,7 @@ struct tile {
 
 	tile(
 		shark shark_one, part part_one,	shark shark_two, part part_two,
-		shark shark_three, part part_three,	shark shark_four, part part_four) {
+		shark shark_three, part part_three, shark shark_four, part part_four) {
 
 			north = info(shark_one, part_one);
 			east = info(shark_two, part_two);
@@ -52,8 +53,7 @@ struct tile {
 		
 };
 
-bool isValid(vector<vector<tile>>& board) {};
-
+bool isValid(vector<vector<tile>>& board);
 	
 int main() {
 
@@ -69,14 +69,51 @@ int main() {
 
 
 	vector<vector<tile>> board = {
-		{E, B, C},
-		{D, A, F},
+		{A, B, C},
+		{D, E, F},
 		{G, H, I}
 	};
+
+	
+	unordered_map<shark, pair<int, int>> counts;
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+
+			if (board[i][j].north.body_part == part::head) {
+				counts[board[i][j].north.species].first += 1;
+			}
+			else{
+				counts[board[i][j].north.species].second += 1;
+			}
+
+			if (board[i][j].east.body_part == part::head) {
+				counts[board[i][j].east.species].first += 1;
+			}
+			else {
+				counts[board[i][j].east.species].second += 1;
+			}
+
+			if (board[i][j].south.body_part == part::head) {
+				counts[board[i][j].south.species].first += 1;
+			}
+			else {
+				counts[board[i][j].south.species].second += 1;
+			}
+
+			if (board[i][j].west.body_part == part::head) {
+				counts[board[i][j].west.species].first += 1;
+			}
+			else {
+				counts[board[i][j].west.species].second += 1;
+			}
+
+		}
+	}
 
 	return(0);
 }
 
 bool isValid(vector<vector<tile>>& board) {
-
+	return false;
 };
